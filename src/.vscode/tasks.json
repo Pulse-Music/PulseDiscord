@@ -7,11 +7,12 @@
             "label": "Install Requirements (win)",
             "type": "shell",
             "command": "Venv\\Scripts\\Activate.ps1 | pip install -r requirements.txt",
+            "problemMatcher": []
         },
         {
             "label": "Install Requirements (*nix)",
             "type": "shell",
-            "command": "source venv/bin/activate && pip3 install -r requirements.txt",
+            "command": "source venv/bin/activate && pip3 install -r requirements.txt"
         }
     ]
 }
