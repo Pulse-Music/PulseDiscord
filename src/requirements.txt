@@ -5,3 +5,5 @@ texttable
 clint
 pyyaml
 discord
+discord.ext.commands
+pytube
