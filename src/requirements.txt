@@ -1,0 +1,6 @@
+pyunpack
+patool
+requests
+texttable
+clint
+pyyaml
