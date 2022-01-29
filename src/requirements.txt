@@ -4,3 +4,4 @@ requests
 texttable
 clint
 pyyaml
+discord
