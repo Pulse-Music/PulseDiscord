@@ -4,6 +4,5 @@ requests
 texttable
 clint
 pyyaml
-discord
-discord.ext.commands
+discord.py
 pytube
