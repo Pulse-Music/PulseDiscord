@@ -6,3 +6,4 @@ clint
 pyyaml
 discord.py
 pytube
+python-dotenv
