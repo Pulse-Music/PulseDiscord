@@ -8,3 +8,4 @@ discord.py
 pytube
 python-dotenv
 discord.py[voice]
+discord.py[audio]
