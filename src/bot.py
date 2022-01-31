@@ -89,5 +89,5 @@ async def owner(ctx):
 
 @client.command(aliases=['pls'])
 async def playlist(ctx, *, query):
-    
+    pass
 client.run(os.getenv('BOT_TOKEN'))
