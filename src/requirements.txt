@@ -4,3 +4,5 @@ pytube
 discord.py[voice]
 discord.py[audio]
 termcolor
+# For building the bot
+cx_Freeze
