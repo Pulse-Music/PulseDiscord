@@ -5,7 +5,11 @@ import indexer
 import re
 import yaml
 import sys
+import logger as lgr
 
+logger = lgr.Logger()
+log = logger.log
+indexer.log = log
 with open('config.yml', 'r') as f:
     yaml_config = yaml.safe_load(f)
     BOT_PREFIX = yaml_config.get('bot_prefix')
@@ -18,7 +22,7 @@ try:
 
     @client.event
     async def on_ready():
-        print(f'Logged in as {client.user}')
+        log(f'Logged in as {client.user}', 'info')
 
     client.recursively_remove_all_commands()
 
