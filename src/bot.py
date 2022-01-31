@@ -4,11 +4,16 @@ import dotenv
 import os
 import indexer
 import re
+import yaml
 
-dotenv.load_dotenv()
+with open('config.yml', 'r') as f:
+    yaml_config = yaml.load(f)
+    BOT_PREFIX = yaml_config['bot_prefix']
+    BOT_TOKEN = yaml_config['bot_token']
+
 #NOTE: CTX = Context
 play_queue = []
-client = commands.Bot(command_prefix='.', owner_id=765739254164357121)
+client = commands.Bot(command_prefix=BOT_PREFIX, owner_id=765739254164357121)
 
 @client.event
 async def on_ready():
@@ -94,4 +99,4 @@ async def owner(ctx):
 #         await ctx.reply('Fetching playlist...')
         
 
-client.run(os.getenv('BOT_TOKEN'))
+client.run(BOT_TOKEN)
