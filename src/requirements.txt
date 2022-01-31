@@ -1,8 +1,8 @@
 pyyaml
-discord.py
+discord
 pytube
-discord.py[voice]
-discord.py[audio]
+discord[voice]
+discord[audio]
 termcolor
 discord
 # For building the bot
