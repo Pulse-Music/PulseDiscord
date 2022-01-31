@@ -40,3 +40,9 @@ def download_audio_raw(url: str, cwd: str) -> str:
         stream.stream_to_buffer(f)
     return os.path.abspath(stream.default_filename.removesuffix('.mp4'))
 
+def getinfo(video: str):
+    return pytube.YouTube(video)
+
+def get_playlist(url: str) -> list:
+    yt = pytube.Playlist(url)
+    return list(yt.videos)
