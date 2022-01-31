@@ -13,7 +13,7 @@ build_exe_options = {
         'discord.ext',
         'datetime',
         'colorama',
-        
+        'nacl',
         ],
     "excludes": [
         
