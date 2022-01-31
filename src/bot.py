@@ -107,7 +107,9 @@ try:
     client.run(BOT_TOKEN)
 
 except RuntimeError:
+    logger.quit()
     sys.exit(0)
 
 finally:
+    logger.quit()
     sys.exit(0)
