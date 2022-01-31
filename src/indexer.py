@@ -22,5 +22,5 @@ def download_audio(video: pytube, cwd: str):
         ) as f:
 
         stream.stream_to_buffer(f)
-    return stream.default_filename.removesuffix('.mp4')
+    return os.path.abspath(stream.default_filename.removesuffix('.mp4'))
 
