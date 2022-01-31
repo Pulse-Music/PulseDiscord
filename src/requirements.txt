@@ -7,3 +7,4 @@ pyyaml
 discord.py
 pytube
 python-dotenv
+discord.py[voice]
