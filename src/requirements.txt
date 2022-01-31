@@ -1,11 +1,6 @@
-pyunpack
-patool
-requests
-texttable
-clint
 pyyaml
 discord.py
 pytube
-python-dotenv
 discord.py[voice]
 discord.py[audio]
+termcolor
