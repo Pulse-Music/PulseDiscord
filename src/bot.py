@@ -3,8 +3,7 @@ from discord.ext import commands
 import dotenv
 import os
 import indexer
-
-
+import re
 
 dotenv.load_dotenv()
 #NOTE: CTX = Context
@@ -50,10 +49,14 @@ async def leave(ctx):
 @client.command(aliases=['p', 'pl'])
 async def play(ctx, *, query):
     with ctx.typing():
-        await ctx.send(f'Searching for {query}...')
-        # If the bot is not in a voice channel, join the channel
-        video = indexer.search(query)[0]
-        vid = indexer.download_audio(video, os.getcwd())
+        # Check if query is a URL
+        if re.match(r'https?://(?:www\.)?youtube\.com/watch\?v=', query):
+            vid = indexer.download_audio_raw(query, os.getcwd())
+        else:
+            await ctx.send(f'Searching for {query}...')
+            # If the bot is not in a voice channel, join the channel
+            video = indexer.search(query)[0]
+            vid = indexer.download_audio(video, os.getcwd())
         
         try:
             os.rename(vid, 'audio.mp3')
@@ -73,13 +76,18 @@ async def play(ctx, *, query):
             )
 
         ctx.voice_client.play(audio)
-        await ctx.send(f'Playing {video.title}')
+        try:
+            await ctx.send(f'Playing {video.title}')
+        except UnboundLocalError:
+            await ctx.send(f'Playing {query}')
     return
 
 @client.command(aliases=['o'])
 async def owner(ctx):
     with ctx.typing():
-        ctx.send(f'My owner is <@{client.owner_id}>')
-    return
+        await ctx.send(f'My owner is <@{client.owner_id}>')
 
+@client.command(aliases=['pls'])
+async def playlist(ctx, *, query):
+    
 client.run(os.getenv('BOT_TOKEN'))
