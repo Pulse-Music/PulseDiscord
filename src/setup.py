@@ -5,13 +5,13 @@ from cx_Freeze import setup, Executable
 # "packages": ["os"] is used as example only
 build_exe_options = {
     "packages": [
-        'pyyaml'
-        'discord'
-        'pytube'
-        'discord[voice]'
-        'discord[audio]'
-        'termcolor'
         'discord',
+        'os',
+        'pytube',
+        'termcolor',
+        'yaml',
+        'discord.ext',
+        'datetime',
         
         ],
     "excludes": [
@@ -23,7 +23,6 @@ build_exe_options = {
     
 }
 
-base = "win32"
 
 setup(
     name = "YouTube Discord Bot",
@@ -33,7 +32,6 @@ setup(
     executables = [
         Executable(
             "bot.py",
-            base=base,
             icon='assets/icon.ico'
             )
         ]
