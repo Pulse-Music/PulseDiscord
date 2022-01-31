@@ -7,6 +7,7 @@ import re
 
 dotenv.load_dotenv()
 #NOTE: CTX = Context
+play_queue = []
 client = commands.Bot(command_prefix='.', owner_id=765739254164357121)
 
 @client.event
@@ -79,7 +80,7 @@ async def play(ctx, *, query):
         try:
             await ctx.send(f'Playing {video.title}')
         except UnboundLocalError:
-            await ctx.send(f'Playing {query}')
+            await ctx.send(f'Playing {indexer.getinfo(query).title}')
     return
 
 @client.command(aliases=['o'])
@@ -87,7 +88,10 @@ async def owner(ctx):
     with ctx.typing():
         await ctx.send(f'My owner is <@{client.owner_id}>')
 
-@client.command(aliases=['pls'])
-async def playlist(ctx, *, query):
-    pass
+# @client.command(aliases=['pls'])
+# async def playlist(ctx, *, query):
+#     with ctx.typing():
+#         await ctx.reply('Fetching playlist...')
+        
+
 client.run(os.getenv('BOT_TOKEN'))
