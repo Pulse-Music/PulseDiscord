@@ -12,6 +12,7 @@ build_exe_options = {
         'yaml',
         'discord.ext',
         'datetime',
+        'colorama',
         
         ],
     "excludes": [

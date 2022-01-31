@@ -5,5 +5,6 @@ discord[voice]
 discord[audio]
 termcolor
 discord
+colorama
 # For building the bot
 cx_Freeze

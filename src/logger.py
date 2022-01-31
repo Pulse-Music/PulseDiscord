@@ -3,9 +3,11 @@
 import datetime
 import os
 from termcolor import colored
+import colorama
 
 class Logger:
     def __init__(self):
+        colorama.init()
         date = datetime.datetime.now().strftime('%Y-%m-%d') + '.log'
         self.log_file_name = 'logs/' + date
         if os.path.isfile('logs'):
@@ -19,6 +21,7 @@ class Logger:
         else:
             os.mkdir('logs')
         self.log_file = open(self.log_file_name, 'a')
+        
 
     def log(self, message, type_):
         # Get the current time with milliseconds
@@ -53,3 +56,4 @@ class Logger:
         return f'[{time}]-[{type_.upper()}]: {message}'
     def quit(self):
         self.log_file.close()
+        colorama.deinit()
