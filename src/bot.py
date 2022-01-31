@@ -30,7 +30,7 @@ async def join(ctx):
         voice_channel = ctx.author.voice.channel
     except AttributeError:
         await ctx.reply("You are not in a voice channel")
-        return
+        return None
     # join the voice channel
     await voice_channel.connect()
     await ctx.send(f'Joined <#{voice_channel.id}>')
@@ -58,16 +58,17 @@ async def play(ctx, *, query):
         os.rename(vid, 'audio.mp3')
     
     vid = 'audio.mp3'
-    await join(ctx)
+    tmp = await join(ctx)
+    if tmp is None:
+        return
     audio = discord.FFmpegPCMAudio(
             executable=os.path.abspath(
                 'ffmpeg/bin/ffmpeg.exe'
             ),
             source=vid,
         )
-    try:
-        ctx.voice_client.play(audio)
-    except AttributeError:
-        await ctx.send("You are in a voice channel")
+
+    ctx.voice_client.play(audio)
     await ctx.send(f'Playing {video.title}')
+
 client.run(os.getenv('BOT_TOKEN'))
