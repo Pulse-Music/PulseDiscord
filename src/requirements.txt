@@ -1,11 +1,9 @@
 pyyaml
-discord
+discord.py
 pytube
-discord[voice]
-discord[audio]
 termcolor
-discord
 colorama
 py7zr
+pynacl
 # For building the bot
 cx_Freeze
