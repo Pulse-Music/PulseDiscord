@@ -61,5 +61,5 @@ class MusicBot(commands.Cog):
             await ctx.voice.channel.disconnect()
         except AttributeError as e:
             await ctx.reply(f'{ctx.author.mention} You are not in a voice channel')
-            raise e
+            raise e from e
         return
