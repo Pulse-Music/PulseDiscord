@@ -6,5 +6,6 @@ discord[audio]
 termcolor
 discord
 colorama
+py7zr
 # For building the bot
 cx_Freeze
