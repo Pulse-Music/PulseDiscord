@@ -62,7 +62,5 @@ async def on_ready():
         status=status,
         )
     logger.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
-    
-    
 bot.add_cog(MusicBot(bot))
 bot.run(config['token'], bot=True, reconnect=True)
