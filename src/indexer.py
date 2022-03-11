@@ -4,7 +4,7 @@ import os
 log = lambda msg, level: print(f'[{level}] {msg}')
 
 def search(query):
-    log("Searching for " + query + "...",'info')
+    log(f"Searching for {query}...", 'info')
     yt = pytube.Search(query)
     return yt.results
 
