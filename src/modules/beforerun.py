@@ -24,4 +24,34 @@
 # DO NOT RUN THIS MODULE DIRECTLY.
 
 assert __name__ != "__main__", "This module should not be run directly. Import it instead."
-def resolve_conflicts(): pass
+def resolve_conflicts(FS_NAME: str="FileStorage", CONFIG_YML: str ="config.yml") -> None:
+    import os, shutil, yaml
+    if os.path.isdir(CONFIG_YML):
+        shutil.rmtree(CONFIG_YML, ignore_errors=True)
+    
+    if os.path.isfile(CONFIG_YML):
+        with open(CONFIG_YML, 'r') as f:
+            config = yaml.safe_load(f)
+        if config is None:
+            config = {
+                "token": None,
+                "prefix": ".",
+                "profile_picture": None,
+                "name": None,
+                "status": 'online',
+                "activity": {"type": 'listening', "name": 'Your commands'},
+                }
+            with open(CONFIG_YML, 'w') as f:
+                yaml.dump(config, f)
+
+    
+    # Ready the File System for archiving.
+    if os.path.isfile(FS_NAME):
+        os.remove(FS_NAME)
+        os.makedirs(FS_NAME, exist_ok=False)
+
+    if not os.path.isdir(FS_NAME):
+        os.makedirs(FS_NAME, exist_ok=False)
+    
+    
+    
