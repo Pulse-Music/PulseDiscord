@@ -47,7 +47,7 @@ class Logger:
         self.setup()
 
     # Override
-    def setup():
+    def setup(self):
         pass
 
     def log2(self, message, type_):
@@ -79,6 +79,18 @@ class Logger:
         del format_, file_format
         self.log2(message, type_)
         return f"[{time}]-[{type_.upper()}]: {message}"
+
+    def info(self, message):
+        self.log(message, "info")
+    
+    def warning(self, message):
+        self.log(message, "warning")
+    
+    def error(self, message):
+        self.log(message, "error")
+    
+    def debug(self, message):
+        self.log(message, "debug")
 
     def quit(self):
         self.log_file.close()
