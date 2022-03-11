@@ -34,6 +34,7 @@ from modules import (
 )
 import discord
 from discord.ext import commands
+from discord.utils import get
 
 logger = Logger()
 
@@ -49,7 +50,7 @@ class MusicBot(commands.Cog):
         try:
             await ctx.author.voice.channel.connect()
         except AttributeError:
-            await ctx.reply(f'{ctx.author.mention} You are not in a voice channel')
+            await ctx.reply('You are not in a voice channel')
         return
         
     @commands.command(name='Leave', aliases=['l'], help='Leave the voice channel')
@@ -58,8 +59,12 @@ class MusicBot(commands.Cog):
         Leave the voice channel
         """
         try:
-            await ctx.voice.channel.disconnect()
+            voice = get(self.bot.voice_clients, guild=ctx.guild)
+            if voice and voice.is_connected():
+                await voice.disconnect()
+            elif not voice:
+                await ctx.reply('I am not in a voice channel')
         except AttributeError as e:
-            await ctx.reply(f'{ctx.author.mention} You are not in a voice channel')
+            await ctx.reply('You are not in a voice channel')
             raise e from e
         return
