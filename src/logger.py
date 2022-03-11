@@ -54,6 +54,7 @@ class Logger:
                 
         del format_, file_format
         return f'[{time}]-[{type_.upper()}]: {message}'
+
     def quit(self):
         self.log_file.close()
         colorama.deinit()
