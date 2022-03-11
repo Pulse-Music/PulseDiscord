@@ -22,11 +22,11 @@
 
 
 # This is the logger module. (Not in pypi)
-assert __name__ != "__main__", "This module should not be run directly. Import it instead."
 import datetime
 import os
 from termcolor import colored
 import colorama
+
 
 class Logger:
     def __init__(self):

@@ -19,9 +19,3 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-# This is a module that should be imported before running the main program.
-# DO NOT RUN THIS MODULE DIRECTLY.
-
-assert __name__ != "__main__", "This module should not be run directly. Import it instead."
-def resolve_conflicts(): pass
