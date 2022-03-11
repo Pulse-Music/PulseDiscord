@@ -1,17 +1,17 @@
 # MIT License
-# 
+#
 # Copyright (c) 2022-Present Advik-B <advik.b@gmail.com>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,22 +27,23 @@ import os
 from termcolor import colored
 import colorama
 
+
 class Logger:
     def __init__(self):
         colorama.init()
-        date = datetime.datetime.now().strftime('%Y-%m-%d') + '.log'
-        self.log_file_name = 'logs/' + date
-        if os.path.isfile('logs'):
+        date = datetime.datetime.now().strftime("%Y-%m-%d") + ".log"
+        self.log_file_name = "logs/" + date
+        if os.path.isfile("logs"):
             try:
-                os.remove('logs')
-                os.mkdir('logs')
+                os.remove("logs")
+                os.mkdir("logs")
             except [OSError, PermissionError]:
                 print("[ERROR] Unable to create logs directory")
-        elif os.path.isdir('logs'):
+        elif os.path.isdir("logs"):
             pass
         else:
-            os.mkdir('logs')
-        self.log_file = open(self.log_file_name, 'a')
+            os.mkdir("logs")
+        self.log_file = open(self.log_file_name, "a")
         self.setup()
 
     # Override
@@ -51,23 +52,17 @@ class Logger:
 
     def log2(self, message, type_):
         pass
-    
+
     def log(self, message, type_):
         # Get the current time with milliseconds
         # time = datetime.datetime.now().strftime('%H:%M:%S:%f')
-        time = datetime.datetime.now().strftime('%H:%M:%S')
+        time = datetime.datetime.now().strftime("%H:%M:%S")
         # format_ = f'[{time}]-[{type_.upper()}]: {message}'
-        types = {
-
-            "info": 'green',
-            "warning": 'yellow',
-            "error": 'red',
-            "debug": 'cyan'
-        }
+        types = {"info": "green", "warning": "yellow", "error": "red", "debug": "cyan"}
         format_ = f'[{colored(time, "yellow")}]-\
 [{colored(type_.upper(), types[type_])}]: \
 {colored(message, "white")}'
-        file_format = f'[{time}]-[{type_.upper()}]: {message}\n'
+        file_format = f"[{time}]-[{type_.upper()}]: {message}\n"
         try:
             print(format_)
         except AttributeError:
@@ -80,10 +75,10 @@ class Logger:
                     self.log_file.write(char)
                 except UnicodeEncodeError:
                     pass
-                
+
         del format_, file_format
         self.log2(message, type_)
-        return f'[{time}]-[{type_.upper()}]: {message}'
+        return f"[{time}]-[{type_.upper()}]: {message}"
 
     def quit(self):
         self.log_file.close()
