@@ -57,5 +57,3 @@ def unzip(file: str) -> str:
 
     os.chdir("..")
     return os.path.join(FS_NAME, f'{file}.mp3')
-
-unzip('dQw4w9WgXcQ')
