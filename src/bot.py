@@ -40,3 +40,26 @@ logger = Logger()
 class MusicBot(commands.Cog):
     def __init__(self, bot) -> None:
         self.bot = bot
+        self.logger = logger
+
+    @commands.command(name='Join', aliases=['j'], help='Join the voice channel')
+    async def join(self, ctx):
+        """Join the voice channel"""
+        
+        try:
+            await ctx.author.voice.channel.connect()
+        except AttributeError:
+            await ctx.reply(f'{ctx.author.mention} You are not in a voice channel')
+        return
+        
+    @commands.command(name='Leave', aliases=['l'], help='Leave the voice channel')
+    async def leave(self, ctx):
+        """_summary_
+        Leave the voice channel
+        """
+        try:
+            await ctx.voice.channel.disconnect()
+        except AttributeError as e:
+            await ctx.reply(f'{ctx.author.mention} You are not in a voice channel')
+            raise e
+        return
