@@ -21,8 +21,15 @@ class Logger:
         else:
             os.mkdir('logs')
         self.log_file = open(self.log_file_name, 'a')
-        
+        self.setup()
 
+    # Override
+    def setup():
+        pass
+
+    def log2(self, message, type_):
+        pass
+    
     def log(self, message, type_):
         # Get the current time with milliseconds
         # time = datetime.datetime.now().strftime('%H:%M:%S:%f')
@@ -53,6 +60,7 @@ class Logger:
                     pass
                 
         del format_, file_format
+        self.log2(message, type_)
         return f'[{time}]-[{type_.upper()}]: {message}'
 
     def quit(self):
