@@ -40,9 +40,24 @@ def resolve_conflicts(FS_NAME: str="FileStorage", CONFIG_YML: str ="config.yml")
                 "name": None,
                 "status": 'online',
                 "activity": {"type": 'listening', "name": 'Your commands'},
+                "owners": ["765739254164357121"],
+                "description": "A bot that plays music.",
                 }
             with open(CONFIG_YML, 'w') as f:
                 yaml.dump(config, f)
+    elif not os.path.isfile(CONFIG_YML):
+        with open(CONFIG_YML, 'w') as f:
+            config = {
+                "token": None,
+                "prefix": ".",
+                "profile_picture": None,
+                "name": None,
+                "status": 'online',
+                "activity": {"type": 'listening', "name": 'Your commands'},
+                "owners": ["765739254164357121"],
+                "description": "A bot that plays music.",
+                }
+            yaml.dump(config, f)
 
     
     # Ready the File System for archiving.
