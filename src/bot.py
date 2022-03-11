@@ -23,7 +23,6 @@
 from modules import (
     
     search_,
-    resolve_conflicts,
     download_audio,
     FS_NAME,
     get_playlist,
@@ -35,6 +34,8 @@ from modules import (
 )
 import discord
 from discord.ext import commands
+
+logger = Logger()
 
 class MusicBot(commands.Cog):
     def __init__(self, bot) -> None:
