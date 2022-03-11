@@ -6,5 +6,5 @@
 So, here is an alternative, Pulse
 
 # Credits
-- [Advik-B](https://github.com/Advik-B) Main Developer
-- [svgrepo.com](https://www.svgrepo.com/svg/2225/music) Bot Icon
+- [Advik-B](https://github.com/Advik-B) Main Developer, Edited Bot Icon
+- [svgrepo.com](https://www.svgrepo.com/svg/2225/music) (BASIC) Bot Icon
