@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 assert __name__ != "__main__", "This module should not be run directly. Import it instead."
+
 import pytube
 import os
 import py7zr

@@ -19,3 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+assert __name__ != "__main__", "This module should not be run directly. Import it instead."
+from .beforerun import resolve_conflicts
+from .logger import Logger 
+from .indexer import (
+    search_,
+    download_audio,
+    FS_NAME,
+    get_playlist,
+    getinfo,
+    index_for_video_locally,
+    unzip
+    )
