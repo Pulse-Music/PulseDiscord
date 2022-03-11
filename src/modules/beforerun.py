@@ -52,6 +52,5 @@ def resolve_conflicts(FS_NAME: str="FileStorage", CONFIG_YML: str ="config.yml")
 
     if not os.path.isdir(FS_NAME):
         os.makedirs(FS_NAME, exist_ok=False)
-    
-    
+
     
