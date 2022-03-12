@@ -19,3 +19,45 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+from bot import (
+    logger,
+    commands,
+    discord
+    )
+
+class BasicFunctionility(commands.Cog):
+    
+    def __init__(self, bot: commands.Bot) -> None:
+        self.bot = bot
+        self.logger = logger
+    
+    @commands.command(name='Ping')
+    async def ping(self, ctx):
+        """_summary_
+        Ping the bot
+        """
+        await ctx.reply(f'Pong! {round(self.bot.latency * 1000)}ms')
+        return
+    
+    @commands.command(aliases=['h'], help='Get help')
+    async def help_(self, ctx):
+        """_summary_
+        Get help
+        """
+        # Create embed
+        embed = discord.Embed(
+            title = "Help",
+            description = f"{self.bot.user.name} command list",
+            color = discord.Color.blue(),
+            )
+
+        # Add commands
+        for c in self.bot.commands:
+            embed.add_field(
+                name = f"{c.name}",
+                value = f"{c.help}"
+                )
+        # Send embed
+        await ctx.reply(embed=embed)
+        return
