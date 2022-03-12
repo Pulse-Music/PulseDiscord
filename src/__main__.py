@@ -24,6 +24,7 @@ from modules import resolve_conflicts
 resolve_conflicts()
 
 from bot import MusicBot, logger
+from basic_util import BasicFunctionility
 from discord.ext import commands
 import yaml
 import discord
@@ -62,5 +63,7 @@ async def on_ready():
         status=status,
         )
     logger.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
+
+bot.add_cog(BasicFunctionility(bot))
 bot.add_cog(MusicBot(bot))
 bot.run(config['token'], bot=True, reconnect=True)
