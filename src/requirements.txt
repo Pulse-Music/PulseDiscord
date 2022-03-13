@@ -5,7 +5,5 @@ termcolor
 colorama
 py7zr
 pynacl
-# For building the bot
-cx_Freeze
 mkdocs
 mkdocs-material
