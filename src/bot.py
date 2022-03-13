@@ -42,6 +42,8 @@ class MusicBot(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.logger = logger
+        self.emoji = {
+            ""
 
     @commands.command(name='Join', aliases=['j'], help='Join the voice channel')
     async def join(self, ctx):
@@ -68,3 +70,7 @@ class MusicBot(commands.Cog):
             await ctx.reply('You are not in a voice channel')
             raise e from e
         return
+    
+    @commands.command(name='Search', aliases=['s'], help='Search for a song to play')
+    async def search(self, ctx, *, query: str):
+        pass
