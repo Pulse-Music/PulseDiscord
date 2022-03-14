@@ -28,6 +28,7 @@ from basic_util import BasicFunctionility
 from discord.ext import commands
 import yaml
 import discord
+import sys
 
 with open('config.yml', 'r') as f:
     config = yaml.safe_load(f)
@@ -66,4 +67,18 @@ async def on_ready():
 
 bot.add_cog(BasicFunctionility(bot))
 bot.add_cog(MusicBot(bot))
-bot.run(config['token'], bot=True, reconnect=True)
+try:
+    
+    bot.run(config['token'], bot=True, reconnect=True)
+except discord.LoginFailure:
+    logger.error('Bot token is invalid!')
+    # logger.quit()
+    sys.exit(-1)
+
+except KeyError:
+    logger.error('Bot token is not set!')
+
+finally:
+    logger.info('Shutting down...')
+    logger.quit()
+    sys.exit(0)
