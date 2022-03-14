@@ -7,3 +7,4 @@ py7zr
 pynacl
 mkdocs
 mkdocs-material
+emoji
