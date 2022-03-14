@@ -83,4 +83,19 @@ class MusicBot(commands.Cog):
     
     @commands.command(name='Search', aliases=['s'], help='Search for a song to play')
     async def search(self, ctx, *, query: str):
-        pass
+        # Typing the command with no query will return the help message
+        if not query:
+            await ctx.reply('Please type the command with a query')
+            return
+        # Search for the song
+        try:
+            results = search_(query)
+            embed = discord.Embed(title='Search Results', color=0x00ff00)
+            for index, result in enumerate(results):
+                embed.add_field(name=result.title, value=str(index), inline=False)
+            
+        except errors.SearchError as e:
+            await ctx.reply(e)
+            raise e from e
+        return
+    
