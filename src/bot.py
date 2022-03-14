@@ -32,9 +32,12 @@ from modules import (
     unzip,
     errors,
 )
+import emoji
 import discord
 from discord.ext import commands
 from discord.utils import get
+import asyncio
+import re
 
 logger = Logger()
 
@@ -42,23 +45,22 @@ class MusicBot(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.logger = logger
-        self.emoji = {
-            "1":":one:",
-            "2":":two:",
-            "3":":three:",
-            "4":":four:",
-            "5":":five:",
-            "6":":six:",
-            "7":":seven:",
-            "8":":eight:",
-            "9":":nine:",
-            "10":":keycap_ten:",
-        }
+        self.emoji = [
+            ":one:",
+            ":two:",
+            ":three:",
+            ":four:",
+            ":five:",
+            ":six:",
+            ":seven:",
+            ":eight:",
+            ":nine:",
+            ":keycap_ten:",
+        ]
+        
 
     @commands.command(name='Join', aliases=['j'], help='Join the voice channel')
     async def join(self, ctx):
-        """Join the voice channel"""
-        
         try:
             await ctx.author.voice.channel.connect()
         except AttributeError:
@@ -67,9 +69,6 @@ class MusicBot(commands.Cog):
         
     @commands.command(name='Leave', aliases=['l'], help='Leave the voice channel')
     async def leave(self, ctx):
-        """_summary_
-        Leave the voice channel
-        """
         try:
             voice = get(self.bot.voice_clients, guild=ctx.guild)
             if voice and voice.is_connected():
@@ -84,6 +83,7 @@ class MusicBot(commands.Cog):
     @commands.command(name='Search', aliases=['s'], help='Search for a song to play')
     async def search(self, ctx, *, query: str):
         # Typing the command with no query will return the help message
+        self.logger.info(f'{ctx.author} searched for {query}')
         if not query:
             await ctx.reply('Please type the command with a query')
             return
@@ -92,10 +92,37 @@ class MusicBot(commands.Cog):
             results = search_(query)
             embed = discord.Embed(title='Search Results', color=0x00ff00)
             for index, result in enumerate(results):
-                embed.add_field(name=result.title, value=str(index), inline=False)
+                embed.add_field(name=result.title, value=str(index + 1), inline=False)
+            
+            # Send the embed to the channel
+            message = await ctx.reply(embed=embed)
+            # Add reactions to the message from 1 to 10
+            for emoji_ in self.emoji:
+                await message.add_reaction(
+                    emoji.emojize(
+                        emoji_,
+                        use_aliases=True
+                        )
+                    )
+            # Wait for a reaction
+            def check(reaction, user):
+                return user == ctx.author and str(reaction.emoji) in self.emoji
+            try:
+                reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
+            except asyncio.TimeoutError:
+                await ctx.reply('You took too long to select a song')
+                return
+            # Get the index of the selected song
+            index = self.emoji.index(str(reaction.emoji))
+            # Play the selected song
+            await self.play(ctx, results[index])
             
         except errors.SearchError as e:
             await ctx.reply(e)
             raise e from e
         return
     
+    
+    @commands.command(name='Play', aliases=['p'], help='Same as search but will play the first song')
+    async def play(self, ctx, *, query: str):
+        raise NotImplementedError('This command is not implemented (yet)')
