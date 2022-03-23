@@ -4,3 +4,4 @@
 *.yml
 build/
 logs/
+FileStorage/
