@@ -72,14 +72,19 @@ def index_for_video_locally(
     if type(video) is str:
         video = pytube.YouTube(video)
     v_id = video.video_id
-    for f in os.listdir(cwd):
-        if v_id == f.removesuffix(".mp3.7z"):
-            return os.path.join(cwd, f)
+    return next(
+        (
+            os.path.join(cwd, f)
+            for f in os.listdir(cwd)
+            if v_id == f.removesuffix(".mp3.7z")
+        ),
+        None,
+    )
 
 
 def unzip(file: str) -> str:
     os.chdir(FS_NAME)
-    with py7zr.SevenZipFile(file.__add__(".mp3.7z"), "r") as z:
+    with py7zr.SevenZipFile(file, "r") as z:
         z.extractall(".")
 
     os.chdir("..")
