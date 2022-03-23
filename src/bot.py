@@ -38,6 +38,7 @@ from discord.ext import commands
 from discord.utils import get
 import asyncio
 import re
+import os
 
 logger = Logger()
 
@@ -57,6 +58,11 @@ class MusicBot(commands.Cog):
             ":nine:",
             ":keycap_ten:",
         ]
+        # RegEx for youtube links
+        self.RegEx = re.compile(
+            r"(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?",
+            re.MULTILINE,
+        )
         
 
     @commands.command(name='Join', aliases=['j'], help='Join the voice channel')
@@ -125,4 +131,34 @@ class MusicBot(commands.Cog):
     
     @commands.command(name='Play', aliases=['p'], help='Same as search but will play the first song')
     async def play(self, ctx, *, query: str):
-        raise NotImplementedError('This command is not implemented (yet)')
+        channel = ctx.message.author.voice.channel
+        if not channel:
+            await ctx.reply("You are not connected to a voice channel")
+            return
+        voice = get(self.bot.voice_clients, guild=ctx.guild)
+        self.logger.info(f'{ctx.author} asked for to {query}')
+
+        if self.RegEx.match(query):
+            if result := index_for_video_locally(getinfo(query)):
+                await self.play_aud(ctx, result)
+            else:
+                path = download_audio(getinfo(query), FS_NAME)
+                await self.play_aud(ctx, path)
+
+        # Try searching for the song locally
+        results = search_(query)
+        result_ = results[0]
+        if result := index_for_video_locally(result_):
+            await self.play_aud(ctx, result)
+        else:
+            path = download_audio(result_, FS_NAME)
+            await self.play_aud(ctx, path)
+    
+    async def play_aud(self, ctx, path: str):
+        path = str(unzip(path)).replace('mp3.7z.mp3.7z', '.mp3')
+        voice = get(self.bot.voice_clients, guild=ctx.guild)
+        if not voice or not voice.is_connected():
+            voice = await ctx.author.voice.channel.connect()
+        voice.play(discord.FFmpegPCMAudio(path, executable=r"ffmpeg\bin\ffmpeg.exe"))
+        await ctx.reply('Playing %s' % path.split('\\')[-1])
+        return
