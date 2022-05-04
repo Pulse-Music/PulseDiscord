@@ -23,12 +23,5 @@
 assert __name__ != "__main__", "This module should not be run directly. Import it instead."
 from .beforerun import resolve_conflicts
 from .logger import Logger 
-from .indexer import (
-    search_,
-    download_audio,
-    FS_NAME,
-    get_playlist,
-    getinfo,
-    index_for_video_locally,
-    unzip
-    )
+from .indexer import *
+from .yt import YouTube
