@@ -69,3 +69,8 @@ class MusicBot(commands.Cog):
         if channel is None:
             channel = await guild.create_voice_channel(FS_NAME)
         return channel.voice_client
+    
+    @commands.command(name='search', aliases=['s'])
+    async def search_(self, ctx, *, query):
+        """ Search for a song and play"""
+        
